@@ -6,9 +6,13 @@ Smart contracts architecture:
 
 Data:
 **address doctor** (doctor's id)
+
 **address patient** (patient's id)
+
 **uint care_type** (type of provided care)
+
 **address strategy** (contract which contains strategy)
+
 
 Modifiers:
 
