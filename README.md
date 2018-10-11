@@ -5,10 +5,10 @@ Smart contracts architecture:
 ## contract MedicalCase
 
 Data:
-** address doctor ** (doctor's id)
-** address patient ** (patient's id)
-** uint care_type ** (type of provided care)
-** address strategy ** (contract which contains strategy)
+**address doctor** (doctor's id)
+**address patient** (patient's id)
+**uint care_type** (type of provided care)
+**address strategy** (contract which contains strategy)
 
 Modifiers:
 
