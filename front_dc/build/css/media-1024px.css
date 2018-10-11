@@ -1,0 +1,6 @@
+@media screen  and (min-height: 1025px) {
+    .welcome-text{
+        margin-top: 160%;
+        transition-duration: 200ms;
+    }
+}

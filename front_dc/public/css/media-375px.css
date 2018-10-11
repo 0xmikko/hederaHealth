@@ -1,0 +1,31 @@
+.log-in{
+    width: 100%;
+    transition-duration: 500ms;
+}
+.welcome-text{
+    font-size: 12pt;
+}
+#user-login{
+    width: 80%;
+    margin: 50px 10% 0 10%;
+    display: inline-block;
+    box-sizing: border-box;
+}
+#user-password{
+    width: 80%;
+    margin: 20px 10% 0 10%;
+    display: inline-block;
+    box-sizing: border-box;
+}
+input[type=submit] {
+    width: 30%;
+    height: 35px;
+}
+#input-log-in{
+    float: left;
+    margin: 30px 10% 0 10%;
+}
+#input-sign-up{
+    margin: 30px 10% 0 0;
+    float: right;
+}

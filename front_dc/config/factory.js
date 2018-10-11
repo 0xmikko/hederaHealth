@@ -1,0 +1,1 @@
+export const factoryAddress = "0x942f40dA545860Cb008Bef03cF907f5Bde54bF97"
