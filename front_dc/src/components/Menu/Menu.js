@@ -25,7 +25,6 @@ export const Menu = (props) => {
          rightMenu = <Navbar.Collapse>
                         <Nav pullRight className='navbar_header'>
                             <MenuLeft {...props}/>
-                            {/* <Notifications />*/}
                             <MenuProfile {...props} />
                         </Nav>
                      </Navbar.Collapse>

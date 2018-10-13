@@ -7,18 +7,13 @@ export const MenuLeft = () => {
 
     const menuItems = [
         {
-            label: 'MARKETPLACE',
-            href: 'options',
+            label: 'CASES',
+            href: 'cases',
         },
 
         {
-            label: 'EXCHANGE',
-            href: 'exchange',
-        },
-
-        {
-            label: 'BALANCES',
-            href: 'balances',
+            label: 'STRATEGIES',
+            href: 'strategies',
         },
 
     ];
