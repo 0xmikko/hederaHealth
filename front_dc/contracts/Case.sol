@@ -5,7 +5,7 @@ import "openzeppelin-solidity/contracts/token/ERC20/MintableToken.sol";
 
 import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
 
-import "./OptionFactory.sol";
+import "./Government.sol";
 
 /* @title OptionTokenStandard - Abstract contract to create Option Token Contracts
  * It containt whole logic except working with tokenContracts

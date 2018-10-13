@@ -7,9 +7,9 @@ import {transactSuccess, transactError, notifyInfo} from "../utils/notification"
 import * as actions from "./actions"
 
 // Import contracts
-import OptionFactoryArtifact from "./../../contracts/OptionFactory.sol";
-import OptionSaleArtifact from "./../../contracts/OptionSale.sol";
-import OptionTokenArtifact from "./../../contracts/OptionToken.sol";
+import OptionFactoryArtifact from "../../contracts/Government.sol";
+import OptionSaleArtifact from "../../contracts/Strategy.sol";
+import OptionTokenArtifact from "../../contracts/Case.sol";
 import ERC20Artifact from "openzeppelin-solidity/contracts/token/ERC20/DetailedERC20.sol";
 
 

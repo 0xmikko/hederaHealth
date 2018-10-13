@@ -1,4 +1,6 @@
 // Importing Open Zeppelin test helpers
+import 'babel-polyfill';
+
 import { ether } from 'openzeppelin-solidity/test/helpers/ether';
 import { advanceBlock } from 'openzeppelin-solidity/test/helpers/advanceToBlock';
 import { increaseTimeTo, duration } from 'openzeppelin-solidity/test/helpers/increaseTime';
@@ -17,69 +19,81 @@ require('chai')
   .should()
 
 
-// Contracts for testing purposes only
-const TokenExampleMintable = artifacts.require('TokenExampleMintable');
-const TokenExampleBurnable = artifacts.require('TokenExampleBurnable');
-
 // Main Contracts
-const OptionToken = artifacts.require('OptionToken');
+const GovernmentContractABI = artifacts.require('Government');
 
 // Setting accounts as array with receiving function
 // ts means tokenstarter
 
-contract('OptionToken', ([ tsAccount, tsAdminAccount, startupAccount, investorAccount]) => {
+contract('Government', ([ govAccount, strategyAccount, doctorAccount, patientAccount]) => {
 
-    let tokenContract, tokenContractMintable, optionTokenContract;
-    const investorAmountToExecute = new BigNumber(50);
-    const premiumRate = new BigNumber(10);
-    const strikePriceRate =  new BigNumber(10);
-    let now, expiredAt;
+    let govContract;
 
     before(async () => {
 
-        // Testing parameters
+        // Waiting for next block
+        await advanceBlock();
 
-        now = (await latestTime());
-        console.log('Now', now)
-        expiredAt = now + duration.weeks(2);
-
-        // Deploying contracts for testing
-        tokenContract =  await TokenExampleBurnable.new(
-            "TokenExampleBurnable",
-            "TEB",
-            18,
-            100000,
-            {from: startupAccount});
-
-        optionTokenContract = await OptionToken.new(
-            'OptionTokenStandard',  // Name
-            'OTS',                  // Symbol
-            18,                     // Decimals
-            strikePriceRate,        // strike price
-            expiredAt,              // expiration date / time
-            tokenContract.address,  // tokenContract address
-            startupAccount,         // tokenWallet account (a person who could allow to approve funds)
-            false,                  // Non-mintable contract
-            startupAccount,         // beneficiary for collected funds
-            {from: tsAccount}
-            );
+        // Deploy Government Contract
+        govContract =  await GovernmentContractABI.new({from: govAccount});
 
     });
 
-    it ('Approving 10,000 tokens for OptionTokenContract', async () =>{
-        const expectedTokenAmount  = 10000;
+    it ('Testing permission to add strategy', async () =>{
 
-        // Aoorove 10,000 tokens to OptionTokenContract
-        // Expected: Approval event
+        await expectThrow(
+            govContract.deployNewStrategy("StrategyProvider#1", {from: doctorAccount}),
+             EVMRevert
+        );
+    });
+
+    it ('Adding new strategy provider', async () =>{
         await expectEvent.inTransaction(
-            tokenContract.approve(optionTokenContract.address, expectedTokenAmount, {from: startupAccount}),
-            'Approval'
+            govContract.deployNewStrategy("StrategyProvider#1", {from: govAccount}),
+            'StrategyProviderAdded'
         );
 
-        // Checking allowance for OptionTokenContract
-        // Expected: 10000 tokens are allowed
-        (await tokenContract.allowance(startupAccount, optionTokenContract.address,  {from: tsAccount}))
-            .should.be.bignumber.equal(expectedTokenAmount);
+    });
+
+    it ('Checking quantity of deployed strategies', async () =>{
+        // Checking quantity of Strategy Providers
+        // Should be 1
+
+        let strategiesQty = await govContract.getStrategyProviderQty();
+        assert.equal(strategiesQty, 1, "Strategies Qty should be 1!");
+    });
+
+
+    it ('Testing permission to add doctor', async () =>{
+
+        await expectThrow(
+            govContract.addDoctor(doctorAccount, {from: doctorAccount}),
+             EVMRevert
+        );
+    });
+
+    it ('Testing permission to add new case', async () =>{
+        await expectEvent.inTransaction(
+            govContract.addDoctor(doctorAccount, {from: govAccount}),
+            'DoctorAdded'
+        );
+
+    });
+
+    it ('Testing permission to setup Case', async () =>{
+
+        await expectThrow(
+            govContract.setupCase(patientAccount, {from: patientAccount}),
+             EVMRevert
+        );
+    });
+
+    it ('Adding new case', async () =>{
+        await expectEvent.inTransaction(
+            govContract.setupCase(patientAccount, {from: doctorAccount}),
+            'CaseAdded'
+        );
+
     });
 
     /*it ('setSalesAgent: Checking setSalesAgent for onlyOwner permission', async () =>{
@@ -100,7 +114,7 @@ contract('OptionToken', ([ tsAccount, tsAdminAccount, startupAccount, investorAc
         );
         // Checking that tsAdmin account is set as Sales Agent
         assert.equal(await optionTokenContract.salesAgent.call(), tsAdminAccount);
-    });*/
+    });
 
     it('mint: Minting OptionTokens for investor', async () => {
         // Minting 500 tokens from startupAccount (has no permission) to investor
@@ -164,5 +178,5 @@ contract('OptionToken', ([ tsAccount, tsAdminAccount, startupAccount, investorAc
             EVMRevert,
             );
 
-    });
+    });*/
 });
