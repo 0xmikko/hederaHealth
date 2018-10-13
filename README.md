@@ -5,16 +5,17 @@ Provide new level of Digital Medical care using Hedera Hashgraph Teachnology & M
 
 ## Customer journey
 
-1. Customer comes to Doctor with his challenge (loose weight for example)
-2. Doctors' provide some diagnostic to get the data about client.
-3. Doctors' start a CASE and store data in Hedera Hashgraph
-4. Using machine learnign algoritms app found some "Strategies" (combining different types of medical treatments) for client and show forecast for usgin these strategies also.
-5. Doctor & patitent together discuss the best option and subscribe for selected strategy.
-6. Client recevies recommendations & notifications using mobile app. S/he provide feedback for each action was done (like training, taking each pill, provide specific treatment)
-7. All these data stores in NoSQL database (we use smartcontract for this pruposes)
-8. Next visit to doctors' they make all measures and they stores in SmartContract also.
-9. When goal was achieved, doctors closes the case, and the data would be used for training ML models for better Digital Healthcare
-10. As result Hedera Hashgraph becomes the most signifocant data provider for digital healthcare.
+1. Patient comes to Doctor with his challenge (loose weight for example)
+2. Doctors' provide some diagnostic to get the data about client(weight, growth, pressure, bpm).
+3. Doctors' start a CASE and store data(measures) in Hedera Hashgraph[HH] with address of patient.
+4. Using machine learnign algoritms app found some "Strategies" (combining different types of medical treatments) for client and show forecast for using these strategies also.
+5. Doctor & patient together discuss the best option and subscribe patient for selected strategy.
+6. Client recevies recommendations & notifications using mobile app. S/he provide feedback for each action was done (like training, taking each pill, every day weight, provide specific treatment)
+7. All these data stores in [HH] (we use smartcontract for this pruposes)
+8. Next visit to doctors' they make all measures again and they stores in [HH] also.
+9. Doctor closes the case, and the data would be used for update strategies and training ML models for better Digital Healthcare
+10. If patient haven't achived his/her target doctor provides new CASE with initial data from previous last measures.
+11. As result Hedera Hashgraph becomes the most significant data provider for digital healthcare.
 
 ## Why we need blockchain for this solution?
 - It creates transparent database which stores effictivness of different pharma providers.
