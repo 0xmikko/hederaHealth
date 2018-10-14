@@ -7,8 +7,6 @@ import Layout from '../components/Layout/Layout';
 import {authErrors, isAuthenticated, isVerified, getProfile, getWallet, getMenuItem,
         getWeb3Instance, refreshTime} from '../reducers';
 import {logout, requestProfile} from '../actions/auth';
-import * as fromActions from "../actions/wallet";
-import {Web3Dispatch} from "../actions/web3";
 import InfoModal from "../components/UI/Modal"
 import {sendDebugEvent} from "../actions/debug";
 
@@ -61,16 +59,12 @@ const mapStateToProps = (state) => ({
     isVerified:      isVerified(state),
     menuItem:        getMenuItem(state),
     profile:         getProfile(state),
-    wallet:          getWallet(state),
-    web3:            getWeb3Instance(state)
 })
 
 const mapDispatchToProps = dispatch => {
   return {
         onInit:                 () => dispatch(requestProfile()),
         sendDebugEvent:         (event, parameters) => dispatch(sendDebugEvent(event, parameters)),
-        switchToIntWallet:      () => dispatch(fromActions.switchToIntWallet()),
-        switchToWeb3Wallet:     () => dispatch(Web3Dispatch()),
         onLogout:               () => dispatch(logout())
 
 

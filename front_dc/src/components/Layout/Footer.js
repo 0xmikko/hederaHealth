@@ -6,7 +6,7 @@ const footer = ( props ) => (
             <div className="container">
                 <div className="row">
                     <div className="col-xs-6">
-                        2018 © Tokenstarter, All rights reserved
+                        2018 © DigitalCare, All rights reserved
                     </div>
                     <div className="col-xs-6">
                         <ul className="pull-right list-inline" >

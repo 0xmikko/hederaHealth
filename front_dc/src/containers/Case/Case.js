@@ -1,9 +1,9 @@
 import React from 'react'
 
-import InfoPage from '../../components/Option/Option'
+import InfoPage from '../../components/Case/Case'
 
-import OptionListLoader from "../DataWrappers/OptionListLoader"
-import ProjectDataLoader from "../DataWrappers/ProjectDataLoader"
+import CaseListLoader from "../DataWrappers/CaseListLoader"
+import CaseDataLoader from "../DataWrappers/CaseDataLoader"
 
 
 class OptionPage extends React.Component {
@@ -27,13 +27,12 @@ class OptionPage extends React.Component {
 
         const tokenContractAddress = optionItem.tokenContractAddress;
 
-        return <ProjectDataLoader tokenContractAddress={tokenContractAddress} {...this.props}>
+        return <CaseDataLoader tokenContractAddress={tokenContractAddress} {...this.props}>
                     <InfoPage
                     optionData={optionItem}
-                    wallet={this.props.wallet}
                     {...this.props}
                     />
-                </ProjectDataLoader>
+                </CaseDataLoader>
 
     }
 }
@@ -43,9 +42,9 @@ const wrapper = (props) =>
 {
 
     return (
-        <OptionListLoader {...props}>
+        <CaseListLoader {...props}>
                 <OptionPage {...props} />
-        </OptionListLoader>
+        </CaseListLoader>
     );
 }
 

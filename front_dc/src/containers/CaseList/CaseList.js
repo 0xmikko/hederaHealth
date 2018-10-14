@@ -1,10 +1,10 @@
 import React from 'react'
 import { Grid } from 'react-bootstrap'
 import Finder from '../../components/Finder/Finder'
-import DataLoader from '../DataWrappers/OptionListLoader'
+import DataLoader from '../DataWrappers/CaseListLoader'
 
 
-class Marketplace extends React.Component
+class CaseList extends React.Component
 {
 
   render (){
@@ -22,4 +22,4 @@ class Marketplace extends React.Component
 
 }
 
-export default Marketplace;
+export default CaseList;

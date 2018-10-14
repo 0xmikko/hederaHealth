@@ -2,8 +2,6 @@ import React from 'react';
 import { Modal, Button, Row, Col } from 'react-bootstrap';
 import picture from "./../../../public/metamask_kovan.png"
 import {connect} from "react-redux";
-import * as actions from "../../actions/wallet";
-import {airdropMe} from "../../actions/wallet";
 
 class Wallet extends React.Component {
 
@@ -68,7 +66,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => {
   return {
 
-      airdropMe:  () => dispatch(actions.airdropMe()),
+      //airdropMe:  () => dispatch(actions.airdropMe()),
 
   }
 };

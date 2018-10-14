@@ -1,12 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import * as actions from '../../actions/projects'
+//import * as actions from '../../actions/projects'
 import * as reducers from '../../reducers/index';
 import * as status from '../../config'
 
 
-class ProjectDataLoader extends React.Component
+class CaseDataLoader extends React.Component
 {
 
     state = { project: undefined }
@@ -63,16 +63,16 @@ class ProjectDataLoader extends React.Component
 
 const mapStateToProps = (state) => ({
 
-  projects: reducers.getProjectData(state),
+  //projects: reducers.getProjectData(state),
 
 })
 
 const mapDispatchToProps = dispatch => {
   return {
 
-     getProjectData: (address) => dispatch(actions.getProjectData(address)),
+     // getProjectData: (address) => dispatch(actions.getProjectData(address)),
 
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectDataLoader);
+export default connect(mapStateToProps, mapDispatchToProps)(CaseDataLoader);

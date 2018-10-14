@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { toHumanDate, rateToPrice, formatPrice } from "../../utils/formaters";
 
 
-const MarketplaceOptionItem = (props) =>
+const CaseOptionItem = (props) =>
 
 {
 
@@ -51,4 +51,4 @@ const MarketplaceOptionItem = (props) =>
 
 }
 
-export default MarketplaceOptionItem;
+export default CaseOptionItem;

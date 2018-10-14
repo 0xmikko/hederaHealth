@@ -1,8 +1,7 @@
 import React from "react";
 import { Panel, Grid, Row, Col, Button } from 'react-bootstrap'
-import ReactDisqusComments from 'react-disqus-comments';
 
-export class Exchange extends React.Component{
+export class Insights extends React.Component{
     render(){
         return(
             <Grid>
@@ -35,11 +34,6 @@ export class Exchange extends React.Component{
 
                        <br /><br />
 
-                         <ReactDisqusComments
-                                shortname="tokenstarter-io"
-                                identifier={"exchange" }
-                                title="Exchange feedback"
-                          />
                         </Panel.Body>
                 </Panel>
                </Col>
@@ -51,4 +45,4 @@ export class Exchange extends React.Component{
     }
 }
 
-export default Exchange;
+export default Insights;

@@ -8,17 +8,11 @@ import { FormGroup,
          Table,
          } from 'react-bootstrap'
 
-import ProjectDataLoader from '../../containers/DataWrappers/ProjectDataLoader'
 import './Finder.css'
 
-import MarketplaceOptionHeader from './MarketplaceOptionHeader'
-import BalancesOptionHeader from './BalancesOptionHeader'
-import BalancesTokenHeader from './BalancesTokenHeader'
-
-import MarketplaceOptionItem from "./MarketplaceOptionItem"
-import BalancesTokenItem from './BalancesTokenItem'
-import BalancesOptionItem from './BalancesOptionItem'
-
+import CaseOptionHeader from './CaseOptionHeader'
+import CaseOptionItem from "./CaseOptionItem"
+import CaseDataLoader from "../../containers/DataWrappers/CaseDataLoader"
 
 export class Finder extends React.Component{
 
@@ -42,17 +36,10 @@ export class Finder extends React.Component{
 
       switch(type)
         {
-            case 'BalancesTokenItem':
-                headerItem = <BalancesTokenHeader/>
-                break;
+            case 'CaseOptionHeader':
 
-            case 'BalancesOptionItem':
-                headerItem = <BalancesOptionHeader/>
-                break;
-
-            case 'MarketplaceOptionItem':
             default:
-                headerItem = <MarketplaceOptionHeader/>
+                headerItem = <CaseOptionHeader/>
             break;
         }
 
@@ -100,31 +87,20 @@ export class Finder extends React.Component{
 
                             switch(type)
                             {
-                                case 'BalancesTokenItem':
-                                    finderItem = <BalancesTokenItem
-                                                            data={dataRow}
-                                                            key={dataRow.optionTokenContractAddress}
-                                                            search={this.state.search}/>
-                                    break;
-                                case 'BalancesOptionItem':
-                                    finderItem = <BalancesOptionItem
-                                                            data={dataRow}
-                                                            key={dataRow.optionTokenContractAddress}
-                                                            search={this.state.search}/>
-                                    break;
-                                case 'MarketplaceOptionItem':
+
+                                case 'CaseOptionItem':
                                 default:
-                                    finderItem = <MarketplaceOptionItem
+                                    finderItem = <CaseOptionItem
                                                             data={dataRow}
                                                             key={dataRow.optionTokenContractAddress}
                                                             search={this.state.search}/>
                                 break;
                             }
-                            return <ProjectDataLoader tokenContractAddress={dataRow.tokenContractAddress}
+                            return <CaseDataLoader tokenContractAddress={dataRow.tokenContractAddress}
                                                       key={'PL' + dataRow.optionTokenContractAddress}
                                                       {...this.props}>
                                         { finderItem }
-                                   </ProjectDataLoader>
+                                   </CaseDataLoader>
                                     })}
 
                         </tbody>

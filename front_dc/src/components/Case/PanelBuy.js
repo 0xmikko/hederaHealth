@@ -2,10 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import DataPanel from '../UI/DataPanel';
-import WalletWidget from '../UI/WalletWidget';
 import Calc from '../UI/Calc';
 import { rateToPrice } from "../../utils/formaters";
-import * as actions from '../../actions/options'
+import * as actions from '../../actions/cases'
 import {WALLET_INT, WALLET_WEB3} from "../../actions/wallet";
 
 class PanelBuy extends React.Component

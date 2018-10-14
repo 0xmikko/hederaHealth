@@ -2,7 +2,7 @@ import React from 'react'
 import { LinkWithNamedTooltip } from './../UI/Tooltip'
 
 
-export const MarketplaceOptionHeader = (props) => {
+export const CaseOptionHeader = (props) => {
 
     return(
 
@@ -35,4 +35,4 @@ export const MarketplaceOptionHeader = (props) => {
     }
 
 
-export default MarketplaceOptionHeader;
+export default CaseOptionHeader;

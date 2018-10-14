@@ -6,11 +6,11 @@ import Login from "../../containers/Auth/Login";
 import SignUp from "../../containers/Auth/SignUp";
 import VerifyEmail from "../../containers/Auth/Verification"
 import Page404 from "../HelpPage/404";
-import Exchange from "../../containers/Exchange/Exchange";
-import Option from "../../containers/Option/Option";
-import Marketplace from "../../containers/Marketplace/Marketplace";
+import Insights from "../../containers/Insights/Insights";
+import Option from "../../containers/Case/Case";
+import CaseList from "../../containers/CaseList/CaseList";
 import Landing from "../../containers/Landing/Landing";
-import Wallet from "../../containers/Balances/Balances";
+import Wallet from "../../containers/Patient/Patient";
 import Notifications from "../Notifications/Notifications"
 
 const layout = ( props ) => {
@@ -46,15 +46,15 @@ const layout = ( props ) => {
 
                         {/* Investors menu */}
                         <Route path="/balances/" component={() => <Wallet {...props} />}/>
-                        <Route exact path="/options/" component={() => <Marketplace {...props} />}/>
-                        <Route exact path="/options/:id" component={(props2) => <Option {...props}
+                        <Route exact path="/cases/" component={() => <CaseList {...props} />}/>
+                        <Route exact path="/cases/:id" component={(props2) => <Option {...props}
                                                                                         optionAddress = {props2.match.params.id}/>}/>
-                        <Route path="/exchange/" component={Exchange}/>
+                        <Route path="/insights/" component={Insights}/>
 
                         {/* Default action & Page 404 */}
-                        <Route exact path="/" render={() => (<Redirect to="/options"/>)}/>
-                        <Route exact path="/login" render={() => (<Redirect to="/options"/>)}/>
-                        <Route path="/verify-email" render={() => (<Redirect to="/options"/>)}/>
+                        <Route exact path="/" render={() => (<Redirect to="/cases"/>)}/>
+                        <Route exact path="/login" render={() => (<Redirect to="/cases"/>)}/>
+                        <Route path="/verify-email" render={() => (<Redirect to="/cases"/>)}/>
                         <Route path='*' component={Page404}/>
             </Switch>
         }

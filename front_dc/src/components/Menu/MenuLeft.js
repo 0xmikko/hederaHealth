@@ -12,8 +12,8 @@ export const MenuLeft = () => {
         },
 
         {
-            label: 'STRATEGIES',
-            href: 'strategies',
+            label: 'INSIGHTS',
+            href: 'insights',
         },
 
     ];

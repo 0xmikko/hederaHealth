@@ -1,5 +1,4 @@
 import React from 'react'
-import {WALLET_INT} from "../../actions/wallet";
 
 const WalletWidget = (props) => {
 

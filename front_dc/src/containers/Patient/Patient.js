@@ -1,11 +1,11 @@
 import React from 'react'
 import { Grid, Col, Row } from 'react-bootstrap'
 import Finder from '../../components/Finder/Finder'
-import DataLoader from "../DataWrappers/OptionListLoader"
+import DataLoader from "../DataWrappers/CaseListLoader"
 
 
 
-class Balances extends React.Component
+class Patient extends React.Component
 {
 
   render (){
@@ -31,4 +31,4 @@ class Balances extends React.Component
 
 }
 
-export default Balances;
+export default Patient;

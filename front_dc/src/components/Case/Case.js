@@ -1,10 +1,9 @@
 import React from 'react';
 import {Panel, Grid } from 'react-bootstrap';
-import ReactDisqusComments from 'react-disqus-comments';
 
 import Header from './Header';
 import PanelMenu from './PanelMenu';
-import PanelBuy from './PanelBuy';
+//import PanelBuy from './PanelBuy';
 
 class infoPage extends React.Component {
     constructor(props) {
@@ -37,18 +36,13 @@ class infoPage extends React.Component {
                                 />
 
                             <div ref={this.BuyRef}>
-                            <PanelBuy
+                                {/*} <PanelBuy
                                 optionData={this.props.optionData}
                                 projectData={this.props.projectData}
                                 {...this.props}
                                 ref={this.BuyRef}
 
-                            /></div>
-                            <ReactDisqusComments
-                                shortname="tokenstarter-io"
-                                identifier={"option" + this.props.optionData.optionSaleContractAddress }
-                                title="Tokenstarter option comments"
-                          />
+                            />*/}</div>
                         </Grid>
                     </Panel.Body>
                 </Panel>
