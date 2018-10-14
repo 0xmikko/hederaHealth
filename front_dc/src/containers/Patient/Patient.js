@@ -42,6 +42,24 @@ class Patient extends React.Component {
         ]
     };
 
+    handleActionDoneClick(idx){
+        let actions = this.state.actions;
+        actions[idx].done = !actions[idx].done;
+        this.setState(state => ({
+            actions: actions
+        }));
+        return false
+    }
+
+    handleActionChangeWeight(idx, e){
+        let actions = this.state.actions;
+        actions[idx].weight = e.target.value;
+        this.setState(state => ({
+            actions: actions
+        }));
+        return false
+    }
+
     render() {
 
         return <Grid>
@@ -109,12 +127,12 @@ class Patient extends React.Component {
                                         </Col>
                                         <Col sm={6}>
                                             {(action.done) ? (
-                                                <a href='#'
+                                                <a onClick={() => this.handleActionDoneClick(idx)}
                                                    className='pull-right'>
                                                     <Glyphicon glyph='check'/>
                                                 </a>
                                             ) : (
-                                                <a href='#'
+                                                <a onClick={() => this.handleActionDoneClick(idx)}
                                                    className='pull-right'>
                                                     <Glyphicon
                                                         glyph='unchecked'/>
@@ -143,9 +161,11 @@ class Patient extends React.Component {
                                     }}>
                                         <Col sm={12}>
                                             <FormControl
+                                                disabled={action.done}
                                                 type='text'
                                                 value={action.value}
                                                 placeholder='Enter your weight'
+                                                onChange={(e) => this.handleActionChangeWeight(idx, e)}
                                             />
                                         </Col>
                                     </Row>)}

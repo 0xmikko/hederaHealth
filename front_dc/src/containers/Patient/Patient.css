@@ -2,14 +2,14 @@
     border: 1px solid #ddd;
     background-color: #ddd;
     padding: 20px;
-    margin-top: 20px
-
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .action-wrapper {
     background-color: #eee;
     padding: 20px;
-    margin-top: 20px
+    margin-top: 20px;
 }
 
 .action-wrapper .glyphicon {
@@ -19,5 +19,5 @@
 .username {
     text-align: center;
     padding: 20px;
-    font-size: 20px
+    font-size: 20px;
 }
