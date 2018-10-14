@@ -11,7 +11,7 @@ import Option from "../../containers/Case/Case";
 import CaseList from "../../containers/CaseList/CaseList";
 import Landing from "../../containers/Landing/Landing";
 import Wallet from "../../containers/Patient/Patient";
-import Notifications from "../Notifications/Notifications"
+import Notifications from "../Notifications/Notifications";
 
 const layout = ( props ) => {
 
@@ -21,6 +21,7 @@ const layout = ( props ) => {
     if (!props.isAuthenticated) {
         routes = <Switch>
             <Route path="/login/" component={Login}/>
+            <Route path="/patient/" component={Wallet}/>
             <Route path="/signup/" component={SignUp}/>
             <Route path="/verify-email/:token"
                     component={(props2) =>

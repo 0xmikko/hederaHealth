@@ -1,0 +1,23 @@
+.strategy-container {
+    border: 1px solid #ddd;
+    background-color: #ddd;
+    padding: 20px;
+    margin-top: 20px
+
+}
+
+.action-wrapper {
+    background-color: #eee;
+    padding: 20px;
+    margin-top: 20px
+}
+
+.action-wrapper .glyphicon {
+    font-size: 18px;
+}
+
+.username {
+    text-align: center;
+    padding: 20px;
+    font-size: 20px
+}
