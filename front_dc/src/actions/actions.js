@@ -44,5 +44,17 @@ export const DATA_FAILURE = '@@projects/DATA_FAILURE';
 export const SIGNUP_SUCCESS_RESET = '@@Auth/account/SIGNUP_SUCCESS_RESET';
 export const SIGNUP_IS_CHECKING = '@@Auth/account/SIGNUP_IS_CHECKING';
 
-export const POPUP = 'POPUP_OPEN'
+export const POPUP = 'POPUP_OPEN';
+
+export const GET_STRATEGIES_REQUEST = '@@hedera/GET_STRATEGIES_REQUEST';
+export const GET_STRATEGIES_SUCCESS = '@@hedera/GET_STRATEGIES_SUCCESS';
+export const GET_STRATEGIES_FAILURE = '@@hedera/GET_STRATEGIES_FAILURE';
+
+export const GET_CASE_REQUEST = '@@hedera/GET_CASE_REQUEST';
+export const GET_CASE_SUCCESS = '@@hedera/GET_CASE_SUCCESS';
+export const GET_CASE_FAILURE = '@@hedera/GET_CASE_FAILURE';
+
+export const UPDATE_CASE_REQUEST = '@@hedera/UPDATE_CASE_REQUEST';
+export const UPDATE_CASE_SUCCESS = '@@hedera/UPDATE_CASE_SUCCESS';
+export const UPDATE_CASE_FAILURE = '@@hedera/UPDATE_CASE_FAILURE';
 

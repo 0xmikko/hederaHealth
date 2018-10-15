@@ -14,6 +14,9 @@ import {
     Table
 } from 'react-bootstrap'
 import "./Doctor.css"
+import {connect} from "react-redux";
+import {getCase, updateCase} from "../../actions/hedera";
+
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -26,22 +29,15 @@ class Strategy extends React.Component {
                 className={"strategy-item " + ((this.props.strategy.result !== undefined) ? "passed" : "")}>
                 <Row>
                     <Col sm={6}>
-                        <h2>Strategy #41 <span
+                        <h2>Strategy #{this.props.strategy.id} <span
                             className="efficiency-label">[{this.props.strategy.efficiency}%]</span>
                         </h2>
                     </Col>
                     <Col sm={6}>
-                        {(this.props.strategy.isOpened) ? (
-                            <a className="pull-right"
-                               onClick={() => this.props.onToggleUI()}
-                            ><Glyphicon
-                                glyph="chevron-up"/></a>
-                        ) : (
-                            <a className="pull-right"
-                               onClick={() => this.props.onToggleUI()}
-                            ><Glyphicon
-                                glyph="chevron-down"/></a>
-                        )}
+                        <a className="pull-right"
+                           onClick={() => this.props.onToggleUI()}
+                        ><Glyphicon
+                            glyph={"chevron-" + ((this.props.strategy.isOpened) ? 'up' : 'down')}/></a>
                     </Col>
                 </Row>
                 {(this.props.strategy.result !== undefined) ? (
@@ -65,6 +61,7 @@ class Strategy extends React.Component {
                                 <br/>
                                 {(action.type === 'pill') ? ("Take \"" + action.text + "\" pill every day per 1 pill") : ''}
                                 {(action.type === 'exercise') ? ("Do \"" + action.text + "\" exercise every day per 15 min") : ''}
+                                {(action.type === 'record') ? ("Add your \"" + action.text + "\" every day") : ''}
                                 <br/>
                                 <br/>
                             </div>
@@ -73,7 +70,8 @@ class Strategy extends React.Component {
                 ) : ''}
                 {(this.props.strategy.isOpened) ? (
                     <div className="strategy-subscribe">
-                        <Button>
+                        <Button
+                            onClick={() => this.props.onSubscribeStrategy()}>
                             Subscribe
                         </Button>
                     </div>
@@ -125,108 +123,124 @@ class Measure extends React.Component {
 }
 
 class Doctor extends React.Component {
+    componentWillMount() {
+        this.props.getCase();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState(nextProps);
+    }
+
     state = {
         patient: {
             address: '',
             diagnosis: null
         },
-        measures: [
-            {
-                name: 'Weight',
-                value: 0,
-                isTarget: false
-            },
-            {
-                name: 'Growth',
-                value: 0,
-                isTarget: false
-            }
-        ],
-        endMeasures: [
-            {
-                name: 'Weight',
-                start: 100,
-                value: 0,
-                isTarget: true
-            },
-            {
-                name: 'Growth',
-                value: 0,
-                isTarget: false
-            }
-        ],
-        strategies: [
-            {
-                id: 41,
-                text: 'Lorem ipsum dolor sit amet, consectetur\n' +
-                'adipiscing elit. Nulla quam velit,\n' +
-                'vulputate eu pharetra nec, mattis ac\n' +
-                'neque.\n',
-                result: 2.18,
-                isResultSuccess: false,
-                efficiency: 65,
-                isOpened: false,
-                timeDelayInWeeks: 3,
-                actions: [
-                    {
-                        id: 1,
-                        text: 'Atarax',
-                        type: 'pill'
-                    },
-                    {
-                        id: 1,
-                        text: 'Ball',
-                        type: 'exercise',
-                        video: 'http://...'
-                    },
-                ]
-            },
-            {
-                id: 42,
-                text: 'Lorem ipsum dolor sit amet, consectetur\n' +
-                'adipiscing elit. Nulla quam velit,\n' +
-                'vulputate eu pharetra nec, mattis ac\n' +
-                'neque.\n',
-                efficiency: 85,
-                isOpened: true,
-                timeDelayInWeeks: 3,
-                actions: [
-                    {
-                        id: 1,
-                        text: 'Atarax',
-                        type: 'pill'
-                    },
-                    {
-                        id: 1,
-                        text: 'Ball',
-                        type: 'exercise',
-                        video: 'http://...'
-                    },
-                ]
-            }
-        ],
-        patientResults: [
-            {
-                date: '15.10.2018',
-                pill: true,
-                exercise: false
-            },
-            {
-                date: '16.10.2018',
-                pill: true,
-                exercise: true
-            },
-            {
-                date: '17.10.2018',
-                pill: true,
-                exercise: false
-            },
-            {
-                date: '18.10.2018',
-                pill: true,
-                exercise: true
-            },
-        ]
+        // strategy: null,
+        // measures: [
+        //     {
+        //         name: 'Weight',
+        //         value: 0,
+        //         isTarget: false
+        //     },
+        //     {
+        //         name: 'Growth',
+        //         value: 0,
+        //         isTarget: false
+        //     }
+        // ],
+        // endMeasures: [
+        //     {
+        //         name: 'Weight',
+        //         start: 100,
+        //         value: 0,
+        //         isTarget: true
+        //     },
+        //     {
+        //         name: 'Growth',
+        //         value: 0,
+        //         isTarget: false
+        //     }
+        // ],
+        // strategies: [
+        //     {
+        //         id: 41,
+        //         text: 'Lorem ipsum dolor sit amet, consectetur\n' +
+        //         'adipiscing elit. Nulla quam velit,\n' +
+        //         'vulputate eu pharetra nec, mattis ac\n' +
+        //         'neque.\n',
+        //         target: 'Loose weight',
+        //         result: 2.18,
+        //         isResultSuccess: false,
+        //         efficiency: 65,
+        //         isOpened: false,
+        //         timeDelayInWeeks: 3,
+        //         actions: [
+        //             {
+        //                 id: 1,
+        //                 text: 'Atarax',
+        //                 type: 'pill'
+        //             },
+        //             {
+        //                 id: 1,
+        //                 text: 'Ball',
+        //                 type: 'exercise',
+        //                 video: 'http://...'
+        //             },
+        //         ]
+        //     },
+        //     {
+        //         id: 42,
+        //         text: 'Lorem ipsum dolor sit amet, consectetur\n' +
+        //         'adipiscing elit. Nulla quam velit,\n' +
+        //         'vulputate eu pharetra nec, mattis ac\n' +
+        //         'neque.\n',
+        //         target: 'Loose weight',
+        //         efficiency: 85,
+        //         isOpened: true,
+        //         timeDelayInWeeks: 3,
+        //         actions: [
+        //             {
+        //                 id: 1,
+        //                 text: 'Atarax',
+        //                 type: 'pill'
+        //             },
+        //             {
+        //                 id: 1,
+        //                 text: 'Ball',
+        //                 type: 'exercise',
+        //                 video: 'http://...'
+        //             },
+        //         ]
+        //     }
+        // ],
+        // actions: [],
+        // patientResults: [
+        //     {
+        //         date: '15.10.2018',
+        //         pill: true,
+        //         exercise: false,
+        //         weight: 100,
+        //     },
+        //     {
+        //         date: '16.10.2018',
+        //         pill: true,
+        //         exercise: true,
+        //         weight: 100,
+        //     },
+        //     {
+        //         date: '17.10.2018',
+        //         pill: true,
+        //         exercise: false,
+        //         weight: 100,
+        //     },
+        //     {
+        //         date: '18.10.2018',
+        //         pill: true,
+        //         exercise: true,
+        //         weight: 100,
+        //     },
+        // ]
     };
 
     handleGetStrategies() {
@@ -238,6 +252,7 @@ class Doctor extends React.Component {
     }
 
     handleCloseCase() {
+        this.props.updateCase(this.state);
         return false;
     }
 
@@ -255,6 +270,7 @@ class Doctor extends React.Component {
         this.setState(state => ({
             strategies: strategies
         }));
+        this.props.updateCase(this.state);
         return false
     }
 
@@ -265,6 +281,7 @@ class Doctor extends React.Component {
                 address: s
             }
         }));
+        this.props.updateCase(this.state);
         return false
     }
 
@@ -274,6 +291,7 @@ class Doctor extends React.Component {
         this.setState(state => ({
             measures: measures
         }));
+        this.props.updateCase(this.state);
         return false;
     }
 
@@ -283,6 +301,7 @@ class Doctor extends React.Component {
         this.setState(state => ({
             measures: measures
         }))
+        this.props.updateCase(this.state);
         return false;
     }
 
@@ -292,6 +311,7 @@ class Doctor extends React.Component {
         this.setState(state => ({
             endMeasures: measures
         }))
+        this.props.updateCase(this.state);
         return false;
     }
 
@@ -301,6 +321,7 @@ class Doctor extends React.Component {
         this.setState(state => ({
             patient: patient
         }))
+        this.props.updateCase(this.state);
         return false;
     }
 
@@ -308,6 +329,21 @@ class Doctor extends React.Component {
         return this.state.measures.some((v, i) => {
             return v.isTarget && (i !== idx);
         })
+    }
+
+    handleToggleShowStrategies() {
+        this.setState({
+            showStrategies: !this.state.showStrategies
+        });
+    }
+
+    subscribeStrategy(idx) {
+        let state = this.state;
+        state.strategy = idx;
+        this.setState(state)
+        console.log(state)
+        this.props.updateCase(state);
+        return false;
     }
 
     render() {
@@ -384,7 +420,7 @@ class Doctor extends React.Component {
                             <h4>Measures on 15.10.2018</h4>
                         </div>
                         <div className='measures-wrapper'>
-                            {this.state.measures.map((m, i) => (
+                            {(this.state.measures) && this.state.measures.map((m, i) => (
                                 <Measure
                                     key={i}
                                     isEnd={false}
@@ -396,19 +432,23 @@ class Doctor extends React.Component {
                             ))}
                         </div>
                         <div className='strategies-wrapper'>
+                            {(this.state.strategy === null) &&
                             <div className="strategy-btn">
                                 <Button
-                                    onClick={() => this.handleGetStrategies()}>Get
+                                    onClick={() => this.handleToggleShowStrategies()}>Get
                                     strategies</Button>
                             </div>
-                            {this.state.strategies.map((s, i) => (
+                            }
+                            {(this.state.strategies && this.state.showStrategies) && this.state.strategies.map((s, i) => (
                                 <Strategy
                                     key={i}
+                                    onSubscribeStrategy={() => this.subscribeStrategy(i)}
                                     strategy={s}
                                     onToggleUI={() => this.handleToggleStrategy(i)}
                                 />
                             ))}
                         </div>
+                        {(this.state.strategy) &&
                         <div className="patient-result-wrapper">
                             <h2>Patient results:</h2>
                             <div className="patient-result-table">
@@ -418,10 +458,11 @@ class Doctor extends React.Component {
                                         <th>Date</th>
                                         <th>Pill "Atarax"</th>
                                         <th>"Ball" excercise</th>
+                                        <th>Weight</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {this.state.patientResults.map((rec, i) => (
+                                    {(this.state.patientResults) && this.state.patientResults.map((rec, i) => (
                                         <tr key={i}>
                                             <td>{rec.date}</td>
                                             <td>
@@ -432,18 +473,23 @@ class Doctor extends React.Component {
                                                 <Checkbox checked={rec.exercise}
                                                           disabled={true}/>
                                             </td>
+                                            <td>
+                                                {rec.weight || ''}
+                                            </td>
                                         </tr>
                                     ))}
                                     </tbody>
                                 </Table>
                             </div>
                         </div>
+                        }
+                        {(this.state.strategy) &&
                         <div className="end-measures-wrapper">
                             <div className='measures-header'>
                                 <h4>Measures on 19.10.2018</h4>
                             </div>
                             <div className='measures-wrapper'>
-                                {this.state.endMeasures.map((m, i) => (
+                                {(this.state.endMeasures) && this.state.endMeasures.map((m, i) => (
                                     <Measure
                                         key={i}
                                         isEnd={true}
@@ -455,7 +501,8 @@ class Doctor extends React.Component {
                                 ))}
                             </div>
                         </div>
-                        <div className="case-actions">
+                        }
+                        {(this.state.strategy) && <div className="case-actions">
                             <Button onClick={() => this.handleCloseCase()}>Close
                                 case</Button>
                             <Button onClick={() => this.handleRepeatCase()}>Repeat
@@ -464,6 +511,7 @@ class Doctor extends React.Component {
                                 onClick={() => this.handleAddrelevantCase()}>Add
                                 relevant case</Button>
                         </div>
+                        }
                     </div>
                 </div>
             </Grid>
@@ -471,4 +519,22 @@ class Doctor extends React.Component {
     }
 }
 
-export default Doctor;
+const mapStateToProps = (state) => {
+    return {
+        ...{showStrategies: state.hedera.strategy !== null},
+        ...state.hedera
+    }
+};
+
+const mapDispatchToProps = (dispatch) => ({
+    getCase: () => {
+        dispatch(getCase('doctor'))
+    },
+    updateCase: (data) => {
+        dispatch(updateCase(data, 'doctor'))
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Doctor);
+
+// export default Doctor;

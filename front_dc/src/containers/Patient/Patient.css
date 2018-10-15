@@ -21,3 +21,17 @@
     padding: 20px;
     font-size: 20px;
 }
+
+.patient-controls {
+    margin-bottom: 20px;
+}
+
+.date-actions-wrapper {
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+.target-wrapper {
+    margin-bottom: 20px;
+}

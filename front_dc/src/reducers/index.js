@@ -7,6 +7,8 @@ import debug, * as fromDebug from './debug'
 import menu, * as fromMenu from './menu'
 import cases, * as fromCases from './cases'
 
+import hedera, * as fromHedera from './hedera'
+
 export default combineReducers({
     auth: auth,
     router: routerReducer,
@@ -14,6 +16,7 @@ export default combineReducers({
     debug: debug,
     menu: menu,
     cases: cases,
+    hedera: hedera
 })
 
 // Authenfication
