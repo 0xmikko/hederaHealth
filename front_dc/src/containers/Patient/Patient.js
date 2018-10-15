@@ -21,7 +21,7 @@ class Patient extends React.Component {
             id: 42,
             target: 'Loose weight',
             efficiency: 88,
-            open: true
+            isOpened: true
         },
         name: 'John Snow',
         actions: [
@@ -89,7 +89,7 @@ class Patient extends React.Component {
             </Row>
             <Row>
                 <Col sm={12}>
-                    <div className='strategy-container'>
+                    <div className='wrapper'>
                         <Row>
                             <Col sm={6}>
                                 <h2>Strategy #{this.state.strategy.id}</h2>

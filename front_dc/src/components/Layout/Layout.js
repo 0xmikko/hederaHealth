@@ -11,6 +11,7 @@ import Option from "../../containers/Case/Case";
 import CaseList from "../../containers/CaseList/CaseList";
 import Landing from "../../containers/Landing/Landing";
 import Wallet from "../../containers/Patient/Patient";
+import Doctor from "../../containers/Doctor/Doctor";
 import Notifications from "../Notifications/Notifications";
 
 const layout = ( props ) => {
@@ -22,6 +23,7 @@ const layout = ( props ) => {
         routes = <Switch>
             <Route path="/login/" component={Login}/>
             <Route path="/patient/" component={Wallet}/>
+            <Route path="/doctor/" component={Doctor}/>
             <Route path="/signup/" component={SignUp}/>
             <Route path="/verify-email/:token"
                     component={(props2) =>

@@ -1,0 +1,52 @@
+.doctor-wrapper {
+    margin-bottom: 20px;
+    padding-top: 20px;
+}
+
+.patient-wrapper {
+    margin-top: 20px;
+    background-color: #ccc;
+    padding: 20px;
+}
+
+.strategy-item {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.strategy-item.passed {
+    background-color: #eee;
+}
+
+.strategy-item h2 span.efficiency-label {
+    font-size: 18px;
+}
+
+.strategy-item > .strategy-result span.red{
+    color: red;
+}
+
+.strategy-item > .strategy-result span.green{
+    color: darkgreen;
+}
+
+.patient-label {
+    margin-bottom: 20px;
+}
+
+.measure-item {
+    margin-bottom: 20px;
+}
+
+.strategy-btn {
+    margin-bottom: 20px;
+}
+
+.strategy-text {
+    margin-bottom: 20px;
+}
+
+.patient-result-wrapper {
+    margin-bottom: 20px;
+}
