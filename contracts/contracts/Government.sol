@@ -24,14 +24,16 @@ contract Government is Ownable {
     );
 
     event CaseAdded(
-        bytes32 indexed patientHash
+        address indexed patientHash
     );
 
     address[] public strategyProviders;
-    address[] public caseContracts;
 
     uint public doctorsQty;
     mapping (address => bool) doctorInList;
+
+    uint public casesQty;
+    mapping (address => address) caseContractsToStrategy;
 
     // Modifiers:
 
@@ -40,6 +42,11 @@ contract Government is Ownable {
         _;
     }
 
+    modifier onlyCases()
+    {
+        require(caseContractsToStrategy[msg.sender] != 0x0);
+        _;
+    }
     // @dev deployNewStrategy
     // @param _providerName - Name of new Strategy Provider
 
@@ -48,14 +55,14 @@ contract Government is Ownable {
         doctorsQty = 0;
     }
 
-    function deployNewStrategy(string _providerName)
+    function deployNewStrategy(string _providerName, address _admin)
         public
         onlyOwner
         returns (address)
     {
 
         // Creates new Option Sale Contract
-        Strategy newStrategy = new Strategy(_providerName);
+        Strategy newStrategy = new Strategy(_providerName, _admin);
 
         // Register contract in contract base
         uint newStrategyId = strategyProviders.push(address(newStrategy)) - 1;
@@ -82,8 +89,24 @@ contract Government is Ownable {
     // Add new Case
     // For doctors only
     function setupCase(address _patient) public onlyDoctor {
-        emit CaseAdded(keccak256(_patient));
+
+        Case newCase = new Case(msg.sender, _patient);
+        caseContractsToStrategy[address(newCase)] = 1;
+        casesQty++;
+        emit CaseAdded(address(newCase));
 
     }
 
+    //
+    // chooseStrategy is function to choose selected medical strategy
+    // Strategy could be setup once
+    //
+    function setStrategy(address _case, address _strategy) public onlyCases returns (bool) {
+        // When strategy is setup, it could not be changed
+        // We check that case is setup (=1) but strategy is not setup yet
+        require(caseContractsToStrategy[address(_case)] == 1);
+        caseContractsToStrategy[address(_case)] = _strategy;
+        return true;
+
+    }
 }

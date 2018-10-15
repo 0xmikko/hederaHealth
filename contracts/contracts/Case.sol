@@ -12,26 +12,27 @@ import "./Strategy.sol";
 
 contract Case is Ownable {
 
-    event Execution (address indexed optionHolder, uint amount);
 
     using SafeMath for uint256;
 
     // Constants
-    uint32 constant public DUTCH_AUCTION_PERIOD = 14 days;
 
     // Variables
     address patient;
     address doctor;
+    address governmentAddress;
     address strategyContractAddress;
+
+    // Strategy approval
+    mapping (address => bool) strategyApprovement;
 
     constructor (
         address  _patient,
-        address  _doctor,
+        address  _doctor
     )
         public
     {
-        //require(now < _expiredAt);
-
+        governmentAddress = msg.sender;
         patient = _patient;
         doctor = _doctor;
 
@@ -49,17 +50,26 @@ contract Case is Ownable {
         _;
     }
 
+    modifier onlyPatientOrDoctor {
+        require((msg.sender == doctor) || (msg.sender == patient));
+        _;
+    }
     // setup strategy could be done by Goverment contract
     // Goverment contract as Case holder set it up for Case
     // And connect Strategy contract also
 
-    function setupStrategy(address _strategy) public onlyOwner {
+    function setupStrategy(address _strategy) public onlyPatientOrDoctor {
+        strategyApprovement[msg.sender] = true;
+        require(strategyApprovement[patient] && strategyApprovement[doctor]);
+        Government government = Government(governmentAddress);
+        require(government.setStrategy(address(this), _strategy));
         strategyContractAddress = _strategy;
+
     }
 
     function submitAction(uint32 actionHash) public onlyPatient {
         Strategy myStrategy = Strategy(strategyContractAddress);
-        myStrategy.submitAction()
+        myStrategy.submitAction(actionHash);
     }
 
 }
