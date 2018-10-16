@@ -56,56 +56,20 @@ def update_case():
     data = request.get_json()
     s = api.add_json(data)
     store.set(s)
-    # request.args['role']
-    # r = requests.post('http://{}:{}/get-case/'.format(HH_API_HOSTNAME,
-    #                                                         HH_API_PORT), json=data, params={'role': request.args['role']})
-    #
-    # return jsonify({'status': r.status_code})
-
-    # with open('case.json', 'w') as f:
-    #     f.write(json.dumps(data))
-
     return jsonify(data)
 
 
 @app.route('/get-case/')
 def get_case():
-    # request.args['role']
-
-    # r = requests.get('http://{}:{}/get-case/'.format(HH_API_HOSTNAME,
-    #                                                        HH_API_PORT), params={'role': request.args['role']})
-    # case = r.json()
-    # strategies_hashes = case['strategies']
-    # strategies = []
-    # api = ipfsapi.connect('127.0.0.1', 5001)
-    # for sh in strategies_hashes:
-    #     res = api.cat(sh)
-    #     data = json.loads(res)
-    #     strategies.append(data)
-
-    # case = json.loads(open('case.json').read())
-
     s = store.get()
-    print(s)
     case = api.get_json(s)
-    print(case)
     strategies = json.loads(open('strategies.json').read())
     case['strategies'] = strategies
-
     return jsonify(case)
 
 
 @app.route('/get-strategies/')
 def get_strategies():
-    # r = requests.get('http://{}:{}/get-strategies/'.format(HH_API_HOSTNAME,
-    #                                                        HH_API_PORT))
-    # strategies_hashes = r.json()
-    # strategies = []
-    # api = ipfsapi.connect('127.0.0.1', 5001)
-    # for sh in strategies_hashes:
-    #     res = api.cat(sh)
-    #     data = json.loads(res)
-    #     strategies.append(data)
     return open('strategies.json').read()
 
 
