@@ -3,13 +3,9 @@ import {
     Grid,
     Col,
     Row,
-    Image,
     Button,
     Glyphicon,
-    ProgressBar,
     FormControl,
-    FormGroup,
-    ControlLabel,
     Checkbox,
     Table
 } from 'react-bootstrap'
@@ -110,7 +106,7 @@ class Measure extends React.Component {
                         {(!this.props.isEnd) ? (<Checkbox
                             disabled={this.props.isTargetSet}
                             checked={this.props.measure.isTarget}
-                            onClick={() => this.props.onToggleTarget()}
+                            onChange={() => this.props.onToggleTarget()}
                         >
                             Is target measure
                         </Checkbox>) : ''}
@@ -153,7 +149,10 @@ class Doctor extends React.Component {
     }
 
     handleCloseCase() {
-        this.props.updateCase(this.state);
+        let state = this.state;
+        state.hideCase = true;
+        this.setState(state);
+        this.props.updateCase(state);
         return false;
     }
 
@@ -161,7 +160,7 @@ class Doctor extends React.Component {
         return false;
     }
 
-    handleAddrelevantCase() {
+    handleAddRelevantCase() {
         return false;
     }
 
@@ -237,7 +236,7 @@ class Doctor extends React.Component {
         this.setState(state);
         state.patientResults = [0, 1, 2, 3].map((i) => {
             return {
-                "date": 15+i + ".10.2018",
+                "date": 15 + i + ".10.2018",
                 "pill": false,
                 "exercise": false,
                 "weight": 0
@@ -245,7 +244,7 @@ class Doctor extends React.Component {
 
         });
         state.endMeasures = state.measures.map(m => {
-            if (m.isTarget){
+            if (m.isTarget) {
                 m.start = m.value;
             }
             return m
@@ -270,7 +269,7 @@ class Doctor extends React.Component {
                             </Col>
                         </Row>
                     </div>
-                    <div className='patient-wrapper'>
+                    {(this.state.hideCase) ? (<div>You have no cases</div>) : <div className='patient-wrapper'>
                         <div className='patient-label'>
                             <Row>
                                 <Col sm={6}>
@@ -424,11 +423,11 @@ class Doctor extends React.Component {
                             <Button onClick={() => this.handleRepeatCase()}>Repeat
                                 case</Button>
                             <Button
-                                onClick={() => this.handleAddrelevantCase()}>Add
+                                onClick={() => this.handleAddRelevantCase()}>Add
                                 relevant case</Button>
                         </div>
                         }
-                    </div>
+                    </div>}
                 </div>
             </Grid>
         )
@@ -439,7 +438,8 @@ const mapStateToProps = (state) => {
     return {
         ...{
             showStrategies: state.hedera.strategy !== null,
-            patientTmpAddress: ''
+            patientTmpAddress: '',
+            hideCase: false
         },
         ...state.hedera
     }

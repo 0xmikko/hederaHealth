@@ -102,7 +102,7 @@ class Patient extends React.Component {
         if(type === 'pill'){
             patientResults[dateIdx].pill = true;
         }
-        if(type === 'weight'){
+        if(type === 'record'){
             patientResults[dateIdx].weight = rest.weight;
         }
         if(type === 'exercise'){
@@ -117,8 +117,9 @@ class Patient extends React.Component {
     }
 
     handleActionChangeWeight(idx, e) {
+        let weight = e.target.value;
         let strategies = this.state.strategies;
-        strategies[this.state.strategy].actions[idx].weight = e.target.value;
+        strategies[this.state.strategy].actions[idx].weight = weight;
         this.setState(state => ({
             strategies: strategies
         }));
@@ -175,7 +176,7 @@ class Patient extends React.Component {
                             </Row>
                             <Row>
                                 <Col sm={12}>
-                                    <ProgressBar now={60}/>
+                                    <ProgressBar now={5}/>
                                 </Col>
                             </Row>
                             <div className="target-wrapper">
