@@ -120,6 +120,7 @@ class Patient extends React.Component {
         let weight = e.target.value;
         let strategies = this.state.strategies;
         strategies[this.state.strategy].actions[idx].weight = weight;
+        console.log(weight)
         this.setState(state => ({
             strategies: strategies
         }));
