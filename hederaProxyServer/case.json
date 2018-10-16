@@ -1,0 +1,21 @@
+{
+  "patient": {
+  },
+  "strategy": null,
+  "measures": [
+    {
+      "isTarget": false,
+      "name": "Weight",
+      "value": 0
+    },
+    {
+      "isTarget": false,
+      "name": "Growth",
+      "value": 0
+    }
+  ],
+  "endMeasures": [],
+  "strategies": [],
+  "actions": [],
+  "patientResults": []
+}

@@ -1,0 +1,52 @@
+[
+  {
+    "id": 41,
+    "text": "Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Nulla quam velit,\nvulputate eu pharetra nec, mattis ac\nneque.\n",
+    "result": 2.18,
+    "target": "Loose weight",
+    "isResultSuccess": false,
+    "efficiency": 65,
+    "isOpened": false,
+    "timeDelayInWeeks": 3,
+    "actions": [
+      {
+        "id": 1,
+        "text": "Atarax",
+        "type": "pill"
+      },
+      {
+        "id": 1,
+        "text": "Ball",
+        "type": "exercise",
+        "video": "http://..."
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "text": "Lorem ipsum dolor sit amet, consectetur\nadipiscing elit. Nulla quam velit,\nvulputate eu pharetra nec, mattis ac\nneque.\n",
+    "target": "Loose weight",
+    "efficiency": 85,
+    "isOpened": true,
+    "timeDelayInWeeks": 3,
+    "actions": [
+      {
+        "id": 1,
+        "text": "Atarax",
+        "type": "pill"
+      },
+      {
+        "id": 2,
+        "text": "Ball",
+        "type": "exercise",
+        "video": "http://..."
+      },
+      {
+        "id": 3,
+        "text": "Weight",
+        "type": "record",
+        "weight": 0
+      }
+    ]
+  }
+]

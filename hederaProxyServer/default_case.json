@@ -1,0 +1,59 @@
+{
+  "patient": {
+    "address": "",
+    "diagnosis": null
+  },
+  "strategy": 1,
+  "measures": [
+    {
+      "name": "Weight",
+      "value": 0,
+      "isTarget": false
+    },
+    {
+      "name": "Growth",
+      "value": 0,
+      "isTarget": false
+    }
+  ],
+  "endMeasures": [
+    {
+      "name": "Weight",
+      "start": 100,
+      "value": 0,
+      "isTarget": true
+    },
+    {
+      "name": "Growth",
+      "value": 0,
+      "isTarget": false
+    }
+  ],
+  "strategies": [],
+  "patientResults": [
+    {
+      "date": "15.10.2018",
+      "pill": true,
+      "exercise": false,
+      "weight": 100
+    },
+    {
+      "date": "16.10.2018",
+      "pill": true,
+      "exercise": true,
+      "weight": 100
+    },
+    {
+      "date": "17.10.2018",
+      "pill": true,
+      "exercise": false,
+      "weight": 100
+    },
+    {
+      "date": "18.10.2018",
+      "pill": true,
+      "exercise": true,
+      "weight": 100
+    }
+  ]
+}
