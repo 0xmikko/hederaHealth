@@ -77,135 +77,10 @@ class Patient extends React.Component {
     }
 
     state = {
-        // patient: {
-        //     address: '',
-        //     diagnosis: null
-        // },
+        patient: null,
         strategy: null,
         strategies: [],
         patientResults: [],
-        // measures: [
-        //     {
-        //         name: 'Weight',
-        //         value: 0,
-        //         isTarget: false
-        //     },
-        //     {
-        //         name: 'Growth',
-        //         value: 0,
-        //         isTarget: false
-        //     }
-        // ],
-        // endMeasures: [
-        //     {
-        //         name: 'Weight',
-        //         start: 100,
-        //         value: 0,
-        //         isTarget: true
-        //     },
-        //     {
-        //         name: 'Growth',
-        //         value: 0,
-        //         isTarget: false
-        //     }
-        // ],
-        // strategies: [
-        //     {
-        //         id: 41,
-        //         text: 'Lorem ipsum dolor sit amet, consectetur\n' +
-        //         'adipiscing elit. Nulla quam velit,\n' +
-        //         'vulputate eu pharetra nec, mattis ac\n' +
-        //         'neque.\n',
-        //         target: 'Loose weight',
-        //         result: 2.18,
-        //         isResultSuccess: false,
-        //         efficiency: 65,
-        //         isOpened: false,
-        //         timeDelayInWeeks: 3,
-        //         actions: [
-        //             {
-        //                 id: 1,
-        //                 text: 'Atarax',
-        //                 type: 'pill'
-        //             },
-        //             {
-        //                 id: 1,
-        //                 text: 'Ball',
-        //                 type: 'exercise',
-        //                 video: 'http://...'
-        //             },
-        //         ]
-        //     },
-        //     {
-        //         id: 42,
-        //         text: 'Lorem ipsum dolor sit amet, consectetur\n' +
-        //         'adipiscing elit. Nulla quam velit,\n' +
-        //         'vulputate eu pharetra nec, mattis ac\n' +
-        //         'neque.\n',
-        //         target: 'Loose weight',
-        //         efficiency: 85,
-        //         isOpened: true,
-        //         timeDelayInWeeks: 3,
-        //         actions: [
-        //             {
-        //                 id: 1,
-        //                 text: 'Atarax',
-        //                 type: 'pill'
-        //             },
-        //             {
-        //                 id: 1,
-        //                 text: 'Ball',
-        //                 type: 'exercise',
-        //                 video: 'http://...'
-        //             },
-        //         ]
-        //     }
-        // ],
-        // patientResults: [
-        //     {
-        //         date: '15.10.2018',
-        //         pill: true,
-        //         exercise: false,
-        //         weight: 100,
-        //     },
-        //     {
-        //         date: '16.10.2018',
-        //         pill: true,
-        //         exercise: true,
-        //         weight: 100,
-        //     },
-        //     {
-        //         date: '17.10.2018',
-        //         pill: true,
-        //         exercise: false,
-        //         weight: 100,
-        //     },
-        //     {
-        //         date: '18.10.2018',
-        //         pill: true,
-        //         exercise: true,
-        //         weight: 100,
-        //     },
-        // ],
-        // actions: [
-        //     {
-        //         date: '15.10.2018',
-        //         text: 'Take pill "Atarax"',
-        //         done: true
-        //     },
-        //     {
-        //         date: '15.10.2018',
-        //         text: 'Do "ball" exercise',
-        //         done: false,
-        //         video: 'http://...'
-        //     },
-        //     {
-        //         date: '15.10.2018',
-        //         text: 'Add your weight',
-        //         done: false,
-        //         weight: 0
-        //     },
-        // ]
     };
 
     handleToggleStrategy() {
@@ -214,7 +89,6 @@ class Patient extends React.Component {
         this.setState(state => ({
             strategies: strategies
         }));
-        this.props.updateCase(this.state);
         return false;
     }
 
@@ -224,12 +98,16 @@ class Patient extends React.Component {
         let action = strategies[this.state.strategy].actions[idx];
         let patientResults = this.state.patientResults;
         let {id, text, type, ...rest} = action;
-        patientResults.push({
-            date: '15.10.2018',
-            text: text,
-            done: true,
-            ...rest
-        });
+        let dateIdx = 0;
+        if(type === 'pill'){
+            patientResults[dateIdx].pill = true;
+        }
+        if(type === 'weight'){
+            patientResults[dateIdx].weight = rest.weight;
+        }
+        if(type === 'exercise'){
+            patientResults[dateIdx].exercise = true;
+        }
         let state = this.state;
         state.strategies = strategies;
         state.patientResults = patientResults;
@@ -244,7 +122,6 @@ class Patient extends React.Component {
         this.setState(state => ({
             strategies: strategies
         }));
-        this.props.updateCase(this.state);
         return false
     }
 

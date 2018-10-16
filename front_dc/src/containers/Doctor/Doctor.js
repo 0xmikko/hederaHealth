@@ -109,7 +109,7 @@ class Measure extends React.Component {
                         ) : ''}
                         {(!this.props.isEnd) ? (<Checkbox
                             disabled={this.props.isTargetSet}
-                            checkbox={(this.props.measure.isTarget) ? ('true') : ('false')}
+                            checked={this.props.measure.isTarget}
                             onClick={() => this.props.onToggleTarget()}
                         >
                             Is target measure
@@ -132,115 +132,11 @@ class Doctor extends React.Component {
     }
 
     state = {
+        patientTmpAddress: '',
         patient: {
             address: '',
             diagnosis: null
         },
-        // strategy: null,
-        // measures: [
-        //     {
-        //         name: 'Weight',
-        //         value: 0,
-        //         isTarget: false
-        //     },
-        //     {
-        //         name: 'Growth',
-        //         value: 0,
-        //         isTarget: false
-        //     }
-        // ],
-        // endMeasures: [
-        //     {
-        //         name: 'Weight',
-        //         start: 100,
-        //         value: 0,
-        //         isTarget: true
-        //     },
-        //     {
-        //         name: 'Growth',
-        //         value: 0,
-        //         isTarget: false
-        //     }
-        // ],
-        // strategies: [
-        //     {
-        //         id: 41,
-        //         text: 'Lorem ipsum dolor sit amet, consectetur\n' +
-        //         'adipiscing elit. Nulla quam velit,\n' +
-        //         'vulputate eu pharetra nec, mattis ac\n' +
-        //         'neque.\n',
-        //         target: 'Loose weight',
-        //         result: 2.18,
-        //         isResultSuccess: false,
-        //         efficiency: 65,
-        //         isOpened: false,
-        //         timeDelayInWeeks: 3,
-        //         actions: [
-        //             {
-        //                 id: 1,
-        //                 text: 'Atarax',
-        //                 type: 'pill'
-        //             },
-        //             {
-        //                 id: 1,
-        //                 text: 'Ball',
-        //                 type: 'exercise',
-        //                 video: 'http://...'
-        //             },
-        //         ]
-        //     },
-        //     {
-        //         id: 42,
-        //         text: 'Lorem ipsum dolor sit amet, consectetur\n' +
-        //         'adipiscing elit. Nulla quam velit,\n' +
-        //         'vulputate eu pharetra nec, mattis ac\n' +
-        //         'neque.\n',
-        //         target: 'Loose weight',
-        //         efficiency: 85,
-        //         isOpened: true,
-        //         timeDelayInWeeks: 3,
-        //         actions: [
-        //             {
-        //                 id: 1,
-        //                 text: 'Atarax',
-        //                 type: 'pill'
-        //             },
-        //             {
-        //                 id: 1,
-        //                 text: 'Ball',
-        //                 type: 'exercise',
-        //                 video: 'http://...'
-        //             },
-        //         ]
-        //     }
-        // ],
-        // actions: [],
-        // patientResults: [
-        //     {
-        //         date: '15.10.2018',
-        //         pill: true,
-        //         exercise: false,
-        //         weight: 100,
-        //     },
-        //     {
-        //         date: '16.10.2018',
-        //         pill: true,
-        //         exercise: true,
-        //         weight: 100,
-        //     },
-        //     {
-        //         date: '17.10.2018',
-        //         pill: true,
-        //         exercise: false,
-        //         weight: 100,
-        //     },
-        //     {
-        //         date: '18.10.2018',
-        //         pill: true,
-        //         exercise: true,
-        //         weight: 100,
-        //     },
-        // ]
     };
 
     handleGetStrategies() {
@@ -248,6 +144,11 @@ class Doctor extends React.Component {
     }
 
     handleAddPatientByAddress() {
+        let patient = this.state.patient;
+        patient['address'] = this.state.patientTmpAddress;
+        let state = this.state;
+        state.patient = patient;
+        this.setState(state);
         return false;
     }
 
@@ -276,12 +177,9 @@ class Doctor extends React.Component {
 
     handlePatientAddressChange(e) {
         let s = e.target.value;
-        this.setState(state => ({
-            patient: {
-                address: s
-            }
-        }));
-        this.props.updateCase(this.state);
+        let state = this.state;
+        state.patientTmpAddress = s;
+        this.setState(state);
         return false
     }
 
@@ -291,7 +189,6 @@ class Doctor extends React.Component {
         this.setState(state => ({
             measures: measures
         }));
-        this.props.updateCase(this.state);
         return false;
     }
 
@@ -301,7 +198,6 @@ class Doctor extends React.Component {
         this.setState(state => ({
             measures: measures
         }))
-        this.props.updateCase(this.state);
         return false;
     }
 
@@ -311,7 +207,6 @@ class Doctor extends React.Component {
         this.setState(state => ({
             endMeasures: measures
         }))
-        this.props.updateCase(this.state);
         return false;
     }
 
@@ -321,7 +216,6 @@ class Doctor extends React.Component {
         this.setState(state => ({
             patient: patient
         }))
-        this.props.updateCase(this.state);
         return false;
     }
 
@@ -340,8 +234,22 @@ class Doctor extends React.Component {
     subscribeStrategy(idx) {
         let state = this.state;
         state.strategy = idx;
-        this.setState(state)
-        console.log(state)
+        this.setState(state);
+        state.patientResults = [0, 1, 2, 3].map((i) => {
+            return {
+                "date": 15+i + ".10.2018",
+                "pill": false,
+                "exercise": false,
+                "weight": 0
+            }
+
+        });
+        state.endMeasures = state.measures.map(m => {
+            if (m.isTarget){
+                m.start = m.value;
+            }
+            return m
+        });
         this.props.updateCase(state);
         return false;
     }
@@ -371,20 +279,27 @@ class Doctor extends React.Component {
                                             <div>Patient:</div>
                                         </Col>
                                         <Col sm={6}>
-                                            <FormControl
-                                                type='text'
-                                                value={this.state.patient.address}
-                                                onChange={(e) => this.handlePatientAddressChange(e)}
-                                                placeholder='Enter patient address'
-                                            />
+                                            {(this.state.patient.address) ?
+                                                (
+                                                    <div>{this.state.patient.address}</div>
+                                                ) :
+                                                (
+                                                    <FormControl
+                                                        type='text'
+                                                        value={this.state.patientTmpAddress}
+                                                        onChange={(e) => this.handlePatientAddressChange(e)}
+                                                        placeholder='Enter patient address'
+                                                    />
+                                                )
+                                            }
                                         </Col>
                                     </Row>
                                 </Col>
                                 <Col sm={6}>
-                                    <Button
+                                    {!this.state.patient.address && <Button
                                         onClick={() => this.handleAddPatientByAddress()}>
                                         Add patient by address
-                                    </Button>
+                                    </Button>}
                                 </Col>
                             </Row>
                         </div>
@@ -397,6 +312,7 @@ class Doctor extends React.Component {
                                         </Col>
                                         <Col sm={6}>
                                             <FormControl componentClass="select"
+                                                         value={this.state.patient.diagnosis || ''}
                                                          onChange={(e) => this.handleDiagnosisChange(e)}
                                                          placeholder="Select diagnosis">
                                                 <option value="">
@@ -521,7 +437,10 @@ class Doctor extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        ...{showStrategies: state.hedera.strategy !== null},
+        ...{
+            showStrategies: state.hedera.strategy !== null,
+            patientTmpAddress: ''
+        },
         ...state.hedera
     }
 };
