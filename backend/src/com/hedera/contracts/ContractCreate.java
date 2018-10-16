@@ -25,14 +25,15 @@ public final class ContractCreate {
 		// new contract
 		long shardNum = 0;
 		long realmNum = 0;
-		long gas = 250000000l;
+		long gas = 2500000000l;
 		byte[] constructorParameters = constParams; 
 		HederaDuration autoRenewPeriod = new HederaDuration(60, 10);
 
 		//fee 100
-		contract.txQueryDefaults.node.contractCreateTransactionFee = 100;
+		contract.txQueryDefaults.node.contractCreateTransactionFee = 1000000;
 		contract.txQueryDefaults.generateRecord = true;
-		
+		contract.autoRenewPeriod = autoRenewPeriod;
+
 		logger.info("");
 		logger.info("CONTRACT CREATE");
 		logger.info("");
@@ -44,8 +45,11 @@ public final class ContractCreate {
 		HederaTransactionResult createResult = contract.create(shardNum, realmNum, fileID, initialBalance, gas,
 				constructorParameters, autoRenewPeriod);
 		// was it successful ?
-        System.out.println(createResult.getPrecheckResult().toString().length());
-        System.out.println(HederaPrecheckResult.OK.toString().length());
+
+		System.out.println("Result");
+		System.out.println(createResult.getPrecheckResult());
+		System.out.println(HederaPrecheckResult.OK);
+
 		if (createResult.getPrecheckResult() == HederaPrecheckResult.OK) {
 			// yes, get a receipt for the transaction
 			logger.info(contract.txQueryDefaults.node.toString());

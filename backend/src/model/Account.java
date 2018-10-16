@@ -3,6 +3,7 @@ package model;
 import java.io.UnsupportedEncodingException;
 import java.time.Instant;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,6 +75,14 @@ public final class Account{
         account.txQueryDefaults = txQueryDefaults;
         account.setNode(txQueryDefaults.node);
         account.getBalance();
+
+        TimeUnit.SECONDS.sleep(1);
+
+        account.getInfo();
+
+        // Checking that Solidity account was linked
+        logger.info(String.format("Solidity account: %s", account.getSolidityContractAccountID()));
+
         return account;
     }
 

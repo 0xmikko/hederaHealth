@@ -1,0 +1,14 @@
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "getCase",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "type": "function",
+    "stateMutability": "nonpayable"
+  },

@@ -1,7 +1,5 @@
 package com.hedera.account;
 
-import java.io.UnsupportedEncodingException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

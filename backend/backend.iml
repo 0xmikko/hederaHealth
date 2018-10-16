@@ -10,5 +10,6 @@
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="ethereumj-core-1.8.2-RELEASE" level="project" />
     <orderEntry type="library" name="java" level="project" />
+    <orderEntry type="library" name="org.web3j:abi:3.1.1-android" level="project" />
   </component>
 </module>

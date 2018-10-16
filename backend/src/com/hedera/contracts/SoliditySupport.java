@@ -3,6 +3,9 @@ package com.hedera.contracts;
 import java.math.BigInteger;
 
 import org.ethereum.core.CallTransaction;
+import org.ethereum.solidity.SolidityType;
+import org.web3j.abi.datatypes.Address;
+import org.web3j.abi.datatypes.generated.Bytes32;
 
 public final class SoliditySupport {
 	// support for smart contract functions
@@ -21,12 +24,31 @@ public final class SoliditySupport {
 		  byte[] encodedFunc = function.encode();
 		  return encodedFunc;
 	 }
-	public static byte[] encodeSet(int valueToAdd, String setABI) {
+
+
+	public static byte[] encodeSet(long valueToAdd, String setABI) {
 		  CallTransaction.Function function = getSetFunction(setABI);
 		  byte[] encodedFunc = function.encode(valueToAdd);
 
 		  return encodedFunc;
 	 }
+
+	public static byte[] encodeSet(byte[] valueToAdd, String setABI) {
+		  CallTransaction.Function function = getSetFunction(setABI);
+		  byte[] encodedFunc = function.encode(valueToAdd);
+
+		  return encodedFunc;
+	 }
+
+    public static byte[] encodeSet(byte[] valueToAdd, byte[] hash, String setABI) {
+        CallTransaction.Function function = getSetFunction(setABI);
+        byte[] encodedFunc = function.encodeArguments(valueToAdd, hash);
+
+        return encodedFunc;
+    }
+
+
+
 	public static int decodeGetValueResult(byte[] value, String getABI) {
 		  int decodedReturnedValue = 0;
 		  CallTransaction.Function function = getGetValueFunction(getABI);

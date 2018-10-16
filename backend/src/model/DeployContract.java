@@ -2,7 +2,6 @@ package model;
 
 import com.hedera.contracts.ContractCreate;
 import com.hedera.contracts.ContractUpdate;
-import com.hedera.contracts.DemoContract;
 import com.hedera.file.FileCreate;
 import com.hedera.sdk.account.HederaAccount;
 import com.hedera.sdk.common.HederaDuration;
@@ -36,10 +35,8 @@ public class DeployContract {
         // setup transaction/query defaults (durations, etc...)
         file.txQueryDefaults = txQueryDefaults;
 
-        System.out.println("BINGO!");
-
         // get file contents
-        InputStream is = DemoContract.class.getResourceAsStream(filename);
+        InputStream is = Contract.class.getResourceAsStream(filename);
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         int nRead;
         byte[] data = new byte[4096];
@@ -50,27 +47,35 @@ public class DeployContract {
         buffer.flush();
         byte[] fileContents = buffer.toByteArray();
 
+        TimeUnit.SECONDS.sleep(2);
+        System.out.println("===== fileContents =====");
+        System.out.println("Bytecode size" + fileContents.length);
         // create a file with contents
         file = FileCreate.create(file, fileContents);
+        TimeUnit.SECONDS.sleep(1);
 
         // new contract object
         contract = new HederaContract();
         // setup transaction/query defaults (durations, etc...)
         contract.txQueryDefaults = account.txQueryDefaults;
 
+
         // create a contract
         contract = ContractCreate.create(contract, file.getFileID(), 0);
         if (contract != null) {
             // update the contract
+            System.out.println("Ready to update");
             HederaTimeStamp expirationTime = new HederaTimeStamp(100, 10);
             HederaDuration autoRenewDuration = new HederaDuration(10, 20);
             TimeUnit.SECONDS.sleep(1);
 
             contract = ContractUpdate.update(contract, expirationTime, autoRenewDuration);
-        }
+        } else { System.out.println("NULL CONTRACT");}
     }
 
     public HederaContract getContract() {
         return contract;
     }
+
+
 }

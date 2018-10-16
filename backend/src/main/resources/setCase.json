@@ -1,0 +1,14 @@
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_strategyIPFSHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "setCase",
+    "outputs": [],
+    "payable": false,
+    "type": "function",
+    "stateMutability": "nonpayable"
+  }
